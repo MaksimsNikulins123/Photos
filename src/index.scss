@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
 
+
 body {
   margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
@@ -14,12 +15,24 @@ body {
 }
 
 .app {
+  // display: flex;
+  // justify-content: center;
+  // flex-direction: column;
   padding: 50px;
   width: 100%;
-  max-width: 1200px;
+  // max-width: 1200px;
+  & h1 {
+    display: flex;
+    justify-content: center;
+  }
+  & content {
+    display: flex;
+    justify-content: center;
+  }
 }
 
 h1 {
+  
   font-family: 'Merriweather', serif;
 }
 
@@ -116,6 +129,7 @@ h1 {
 
 .top {
   display: flex;
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
 }

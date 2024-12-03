@@ -5,7 +5,7 @@ import Categories from './components/Categories/Categories';
 
 
 function App() {
-  console.log('App created')
+  // console.log('App created')
 
   const [isLoading, setIsLoading] = useState(true);
   const [categories, setCategories] = useState([]);
@@ -17,28 +17,27 @@ function App() {
   const [pages, setPages] = useState(1);
   const [page, setPage] = useState(1);
   
-  const maxCollectionsPerPage = 2;
+  const maxCollectionsPerPage = 3;
 
   const sortCollections = (categoryId) => { 
-    console.log('start sorting')
+    // console.log('start sorting')
       if(categoryId === 0) {
-        setSortedCollections(allCollections)
         paginateCollections(maxCollectionsPerPage, allCollections) 
       } else {
         const filteredCollections = allCollections.filter((collection) => {return collection.category === categoryId})
-        setSortedCollections(filteredCollections)
         paginateCollections(maxCollectionsPerPage, filteredCollections)
       }
 
     }
 
   const paginateCollections = (maxCollectionsPerPage, collections) => {
-    console.log('start paginate')
+    // console.log('start paginate')
     setSortedCollections([...collections])
-    const pages = Math.round(collections.length / maxCollectionsPerPage)
+    const pages = Math.ceil([...collections].length / maxCollectionsPerPage)
     setPages(pages)
+    setPage(1)
     const newSortedArrayByPage = [];
-    const copyOfSortedcollectionsArray = collections;
+    const copyOfSortedcollectionsArray = [...collections];
     do{
       const arrayToPush = []
         for (let index = 0; index < maxCollectionsPerPage; index++) {
@@ -78,7 +77,7 @@ function App() {
     .finally(() => setIsLoading(false));
   }, []);
 
-  console.log(sortedCollections)
+  // console.log(sortedCollections)
 
 
   return (
