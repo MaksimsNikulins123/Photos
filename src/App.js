@@ -51,10 +51,8 @@ function App() {
 
   const search = (e) => {
     setSearchValue(e.target.value)
-    console.log(e.target.value)
-    console.log(collectionsByPagination)
-    const foundCollection = allCollections.filter((collection) => {return collection.name.includes(e.target.value)})
-    paginateCollections(maxCollectionsPerPage, foundCollection)
+    const collectionAfterSearch = allCollections.filter((collection) => {return collection.name.toLowerCase().includes((e.target.value).toLowerCase())})
+    paginateCollections(maxCollectionsPerPage, collectionAfterSearch)
   }
 
 
