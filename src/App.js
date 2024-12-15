@@ -5,22 +5,20 @@ import Categories from './components/Categories/Categories';
 
 
 function App() {
-  // console.log('App created')
 
   const [isLoading, setIsLoading] = useState(true);
   const [categories, setCategories] = useState([]);
   const [allCollections, setAllCollections] = useState([]);
   const [searchValue, setSearchValue] = useState('');
   const [categoryId, setCategoryId] = useState(0);
-  const [sortedCollections, setSortedCollections] = useState([]);
   const [collectionsByPagination, setCollectionsByPagination] = useState([]);
   const [pages, setPages] = useState(1);
   const [page, setPage] = useState(1);
   
   const maxCollectionsPerPage = 3;
 
-  const sortCollections = (categoryId) => { 
-    // console.log('start sorting')
+  const sortCollections = (categoryId) => {
+      setSearchValue('')
       if(categoryId === 0) {
         paginateCollections(maxCollectionsPerPage, allCollections) 
       } else {
@@ -32,7 +30,6 @@ function App() {
 
   const paginateCollections = (maxCollectionsPerPage, collections) => {
     // console.log('start paginate')
-    setSortedCollections([...collections])
     const pages = Math.ceil([...collections].length / maxCollectionsPerPage)
     setPages(pages)
     setPage(1)
@@ -50,6 +47,14 @@ function App() {
   }
     while (copyOfSortedcollectionsArray.length > 0)
       setCollectionsByPagination(newSortedArrayByPage)
+  }
+
+  const search = (e) => {
+    setSearchValue(e.target.value)
+    console.log(e.target.value)
+    console.log(collectionsByPagination)
+    const foundCollection = allCollections.filter((collection) => {return collection.name.includes(e.target.value)})
+    paginateCollections(maxCollectionsPerPage, foundCollection)
   }
 
 
@@ -77,8 +82,6 @@ function App() {
     .finally(() => setIsLoading(false));
   }, []);
 
-  // console.log(sortedCollections)
-
 
   return (
       <div className="app">
@@ -97,7 +100,12 @@ function App() {
               ))
             }
           </ul>
-          <input className="search-input" placeholder="search by name" value={searchValue} onChange={(e) => setSearchValue(e.target.value)}/>
+          <input 
+            className="search-input" 
+            placeholder="search by name" 
+            value={searchValue} 
+            onChange={(e) => search(e)}
+            />
         </div>
         <div className="content">
           {
@@ -107,7 +115,8 @@ function App() {
             :
             collectionsByPagination[page - 1]
             .filter((collection) => {
-              return collection.name.toLowerCase().includes(searchValue.toLowerCase())
+              const filteredCollection = collection.name.toLowerCase().includes(searchValue.toLowerCase())
+              return filteredCollection
             })
             .map((collection, index) => (
               <Collection
