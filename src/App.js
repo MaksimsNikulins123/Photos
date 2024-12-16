@@ -29,7 +29,6 @@ function App() {
     }
 
   const paginateCollections = (maxCollectionsPerPage, collections) => {
-    // console.log('start paginate')
     const pages = Math.ceil([...collections].length / maxCollectionsPerPage)
     setPages(pages)
     setPage(1)
